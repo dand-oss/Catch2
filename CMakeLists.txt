@@ -48,6 +48,8 @@ include(asv_cmake_defaults)
 asv_cmake_defaults( )
 ###############
 
+set(BUILD_SHARED_LIBS ON)
+
 # Provide path for scripts. We first add path to the scripts we don't use,
 # but projects including us might, and set the path up to parent scope.
 # Then we also add path that we use to configure the project, but is of
