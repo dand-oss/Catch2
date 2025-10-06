@@ -5920,6 +5920,53 @@ with expansion:
   12 > 3
 
 -------------------------------------------------------------------------------
+Generators can be skipped forward
+-------------------------------------------------------------------------------
+GeneratorsImpl.tests.cpp:<line number>
+...............................................................................
+
+GeneratorsImpl.tests.cpp:<line number>: PASSED:
+  REQUIRE( generator.currentElementIndex() == 0 )
+with expansion:
+  0 == 0
+
+GeneratorsImpl.tests.cpp:<line number>: PASSED:
+  REQUIRE( generator.currentElementIndex() == 3 )
+with expansion:
+  3 == 3
+
+GeneratorsImpl.tests.cpp:<line number>: PASSED:
+  REQUIRE( generator.get() == 3 )
+with expansion:
+  3 == 3
+
+GeneratorsImpl.tests.cpp:<line number>: PASSED:
+  REQUIRE( generator.currentElementIndex() == 3 )
+with expansion:
+  3 == 3
+
+GeneratorsImpl.tests.cpp:<line number>: PASSED:
+  REQUIRE( generator.get() == 3 )
+with expansion:
+  3 == 3
+
+GeneratorsImpl.tests.cpp:<line number>: PASSED:
+  REQUIRE( generator.currentElementIndex() == 5 )
+with expansion:
+  5 == 5
+
+GeneratorsImpl.tests.cpp:<line number>: PASSED:
+  REQUIRE( generator.get() == 5 )
+with expansion:
+  5 == 5
+
+GeneratorsImpl.tests.cpp:<line number>: PASSED:
+  REQUIRE_THROWS( generator.skipToNthElement( 3 ) )
+
+GeneratorsImpl.tests.cpp:<line number>: PASSED:
+  REQUIRE_THROWS( generator.skipToNthElement( 6 ) )
+
+-------------------------------------------------------------------------------
 Generators internals
   Single value
 -------------------------------------------------------------------------------
@@ -19531,6 +19578,6 @@ Misc.tests.cpp:<line number>
 Misc.tests.cpp:<line number>: PASSED:
 
 ===============================================================================
-test cases:  439 |  319 passed |  96 failed | 6 skipped | 18 failed as expected
-assertions: 2331 | 2130 passed | 158 failed | 43 failed as expected
+test cases:  440 |  320 passed |  96 failed | 6 skipped | 18 failed as expected
+assertions: 2340 | 2139 passed | 158 failed | 43 failed as expected
 

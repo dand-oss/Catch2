@@ -419,6 +419,8 @@
 ##teamcity[testFinished name='Generators -- adapters' duration="{duration}"]
 ##teamcity[testStarted name='Generators -- simple']
 ##teamcity[testFinished name='Generators -- simple' duration="{duration}"]
+##teamcity[testStarted name='Generators can be skipped forward']
+##teamcity[testFinished name='Generators can be skipped forward' duration="{duration}"]
 ##teamcity[testStarted name='Generators internals']
 ##teamcity[testFinished name='Generators internals' duration="{duration}"]
 ##teamcity[testStarted name='Greater-than inequalities with different epsilons']

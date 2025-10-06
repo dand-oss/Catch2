@@ -799,6 +799,15 @@ Generators.tests.cpp:<line number>: passed: j < i for: -1 < 3
 Generators.tests.cpp:<line number>: passed: 4u * i > str.size() for: 12 > 1
 Generators.tests.cpp:<line number>: passed: 4u * i > str.size() for: 12 > 2
 Generators.tests.cpp:<line number>: passed: 4u * i > str.size() for: 12 > 3
+GeneratorsImpl.tests.cpp:<line number>: passed: generator.currentElementIndex() == 0 for: 0 == 0
+GeneratorsImpl.tests.cpp:<line number>: passed: generator.currentElementIndex() == 3 for: 3 == 3
+GeneratorsImpl.tests.cpp:<line number>: passed: generator.get() == 3 for: 3 == 3
+GeneratorsImpl.tests.cpp:<line number>: passed: generator.currentElementIndex() == 3 for: 3 == 3
+GeneratorsImpl.tests.cpp:<line number>: passed: generator.get() == 3 for: 3 == 3
+GeneratorsImpl.tests.cpp:<line number>: passed: generator.currentElementIndex() == 5 for: 5 == 5
+GeneratorsImpl.tests.cpp:<line number>: passed: generator.get() == 5 for: 5 == 5
+GeneratorsImpl.tests.cpp:<line number>: passed: generator.skipToNthElement( 3 )
+GeneratorsImpl.tests.cpp:<line number>: passed: generator.skipToNthElement( 6 )
 GeneratorsImpl.tests.cpp:<line number>: passed: gen.get() == 123 for: 123 == 123
 GeneratorsImpl.tests.cpp:<line number>: passed: !(gen.next()) for: !false
 GeneratorsImpl.tests.cpp:<line number>: passed: gen.get() == 1 for: 1 == 1
@@ -2904,7 +2913,7 @@ InternalBenchmark.tests.cpp:<line number>: passed: med == 18. for: 18.0 == 18.0
 InternalBenchmark.tests.cpp:<line number>: passed: q3 == 23. for: 23.0 == 23.0
 Misc.tests.cpp:<line number>: passed:
 Misc.tests.cpp:<line number>: passed:
-test cases:  439 |  319 passed |  96 failed | 6 skipped | 18 failed as expected
-assertions: 2331 | 2130 passed | 158 failed | 43 failed as expected
+test cases:  440 |  320 passed |  96 failed | 6 skipped | 18 failed as expected
+assertions: 2340 | 2139 passed | 158 failed | 43 failed as expected
 
 

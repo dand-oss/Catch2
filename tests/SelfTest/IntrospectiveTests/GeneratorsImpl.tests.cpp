@@ -604,3 +604,42 @@ TEST_CASE( "ConcatGenerator", "[generators][concat]" ) {
         REQUIRE_FALSE( c.next() );
     }
 }
+
+namespace {
+    // Test the default behaviour of skipping generators forward. We do
+    // not want to use pre-existing generator, because they will get
+    // specialized forward skip implementation.
+    class SkipTestGenerator : public Catch::Generators::IGenerator<int> {
+        std::vector<int> m_elements{ 0, 1, 2, 3, 4, 5 };
+        size_t m_idx = 0;
+    public:
+        int const& get() const override { return m_elements[m_idx]; }
+        bool next() override {
+            ++m_idx;
+            return m_idx < m_elements.size();
+        }
+    };
+}
+
+TEST_CASE( "Generators can be skipped forward", "[generators]" ) {
+    SkipTestGenerator generator;
+    REQUIRE( generator.currentElementIndex() == 0 );
+
+    generator.skipToNthElement( 3 );
+    REQUIRE( generator.currentElementIndex() == 3 );
+    REQUIRE( generator.get() == 3 );
+
+    // Try "skipping" to the same element.
+    generator.skipToNthElement( 3 );
+    REQUIRE( generator.currentElementIndex() == 3 );
+    REQUIRE( generator.get() == 3 );
+
+    generator.skipToNthElement( 5 );
+    REQUIRE( generator.currentElementIndex() == 5 );
+    REQUIRE( generator.get() == 5 );
+
+    // Backwards
+    REQUIRE_THROWS( generator.skipToNthElement( 3 ) );
+    // Past the end
+    REQUIRE_THROWS( generator.skipToNthElement( 6 ) );
+}

@@ -6735,6 +6735,81 @@ Approx( 1.30000000000000004 )
     </Section>
     <OverallResult success="true" skips="0"/>
   </TestCase>
+  <TestCase name="Generators can be skipped forward" tags="[generators]" filename="tests/<exe-name>/IntrospectiveTests/GeneratorsImpl.tests.cpp" >
+    <Expression success="true" type="REQUIRE" filename="tests/<exe-name>/IntrospectiveTests/GeneratorsImpl.tests.cpp" >
+      <Original>
+        generator.currentElementIndex() == 0
+      </Original>
+      <Expanded>
+        0 == 0
+      </Expanded>
+    </Expression>
+    <Expression success="true" type="REQUIRE" filename="tests/<exe-name>/IntrospectiveTests/GeneratorsImpl.tests.cpp" >
+      <Original>
+        generator.currentElementIndex() == 3
+      </Original>
+      <Expanded>
+        3 == 3
+      </Expanded>
+    </Expression>
+    <Expression success="true" type="REQUIRE" filename="tests/<exe-name>/IntrospectiveTests/GeneratorsImpl.tests.cpp" >
+      <Original>
+        generator.get() == 3
+      </Original>
+      <Expanded>
+        3 == 3
+      </Expanded>
+    </Expression>
+    <Expression success="true" type="REQUIRE" filename="tests/<exe-name>/IntrospectiveTests/GeneratorsImpl.tests.cpp" >
+      <Original>
+        generator.currentElementIndex() == 3
+      </Original>
+      <Expanded>
+        3 == 3
+      </Expanded>
+    </Expression>
+    <Expression success="true" type="REQUIRE" filename="tests/<exe-name>/IntrospectiveTests/GeneratorsImpl.tests.cpp" >
+      <Original>
+        generator.get() == 3
+      </Original>
+      <Expanded>
+        3 == 3
+      </Expanded>
+    </Expression>
+    <Expression success="true" type="REQUIRE" filename="tests/<exe-name>/IntrospectiveTests/GeneratorsImpl.tests.cpp" >
+      <Original>
+        generator.currentElementIndex() == 5
+      </Original>
+      <Expanded>
+        5 == 5
+      </Expanded>
+    </Expression>
+    <Expression success="true" type="REQUIRE" filename="tests/<exe-name>/IntrospectiveTests/GeneratorsImpl.tests.cpp" >
+      <Original>
+        generator.get() == 5
+      </Original>
+      <Expanded>
+        5 == 5
+      </Expanded>
+    </Expression>
+    <Expression success="true" type="REQUIRE_THROWS" filename="tests/<exe-name>/IntrospectiveTests/GeneratorsImpl.tests.cpp" >
+      <Original>
+        generator.skipToNthElement( 3 )
+      </Original>
+      <Expanded>
+        generator.skipToNthElement( 3 )
+      </Expanded>
+    </Expression>
+    <Expression success="true" type="REQUIRE_THROWS" filename="tests/<exe-name>/IntrospectiveTests/GeneratorsImpl.tests.cpp" >
+      <Original>
+        generator.skipToNthElement( 6 )
+      </Original>
+      <Expanded>
+        generator.skipToNthElement( 6 )
+      </Expanded>
+    </Expression>
+    <OverallResult success="true" skips="0"/>
+  </TestCase>
   <TestCase name="Generators internals" tags="[generators][internals]" filename="tests/<exe-name>/IntrospectiveTests/GeneratorsImpl.tests.cpp" >
     <Section name="Single value" filename="tests/<exe-name>/IntrospectiveTests/GeneratorsImpl.tests.cpp" >
       <Expression success="true" type="REQUIRE" filename="tests/<exe-name>/IntrospectiveTests/GeneratorsImpl.tests.cpp" >
@@ -22611,6 +22686,6 @@ Approx( -1.95996398454005449 )
     </Section>
     <OverallResult success="true" skips="0"/>
   </TestCase>
-  <OverallResults successes="2130" failures="158" expectedFailures="43" skips="12"/>
-  <OverallResultsCases successes="319" failures="96" expectedFailures="18" skips="6"/>
+  <OverallResults successes="2139" failures="158" expectedFailures="43" skips="12"/>
+  <OverallResultsCases successes="320" failures="96" expectedFailures="18" skips="6"/>
 </Catch2TestRun>

@@ -1458,6 +1458,24 @@ ok {test-number} - 4u * i > str.size() for: 12 > 1
 ok {test-number} - 4u * i > str.size() for: 12 > 2
 # Generators -- simple
 ok {test-number} - 4u * i > str.size() for: 12 > 3
+# Generators can be skipped forward
+ok {test-number} - generator.currentElementIndex() == 0 for: 0 == 0
+# Generators can be skipped forward
+ok {test-number} - generator.currentElementIndex() == 3 for: 3 == 3
+# Generators can be skipped forward
+ok {test-number} - generator.get() == 3 for: 3 == 3
+# Generators can be skipped forward
+ok {test-number} - generator.currentElementIndex() == 3 for: 3 == 3
+# Generators can be skipped forward
+ok {test-number} - generator.get() == 3 for: 3 == 3
+# Generators can be skipped forward
+ok {test-number} - generator.currentElementIndex() == 5 for: 5 == 5
+# Generators can be skipped forward
+ok {test-number} - generator.get() == 5 for: 5 == 5
+# Generators can be skipped forward
+ok {test-number} - generator.skipToNthElement( 3 )
+# Generators can be skipped forward
+ok {test-number} - generator.skipToNthElement( 6 )
 # Generators internals
 ok {test-number} - gen.get() == 123 for: 123 == 123
 # Generators internals
@@ -4681,5 +4699,5 @@ ok {test-number} - q3 == 23. for: 23.0 == 23.0
 ok {test-number} -
 # xmlentitycheck
 ok {test-number} -
-1..2343
+1..2352
 

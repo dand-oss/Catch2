@@ -149,6 +149,7 @@ at AssertionHandler.tests.cpp:<line number>
     <testCase name="ConcatGenerator/Cat support single-generator construction" duration="{duration}"/>
     <testCase name="ConcatGenerator/Iterating over multiple generators" duration="{duration}"/>
     <testCase name="Filter generator throws exception for empty generator" duration="{duration}"/>
+    <testCase name="Generators can be skipped forward" duration="{duration}"/>
     <testCase name="Generators internals" duration="{duration}"/>
     <testCase name="Generators internals/Single value" duration="{duration}"/>
     <testCase name="Generators internals/Preset values" duration="{duration}"/>

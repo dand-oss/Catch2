@@ -170,6 +170,7 @@ Nor would this
 :test-result: PASS GENERATE can combine literals and generators
 :test-result: PASS Generators -- adapters
 :test-result: PASS Generators -- simple
+:test-result: PASS Generators can be skipped forward
 :test-result: PASS Generators internals
 :test-result: PASS Greater-than inequalities with different epsilons
 :test-result: PASS Hashers with different seed produce different hash with same test case
