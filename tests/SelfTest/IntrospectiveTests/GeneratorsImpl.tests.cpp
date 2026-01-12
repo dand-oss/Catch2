@@ -643,3 +643,81 @@ TEST_CASE( "Generators can be skipped forward", "[generators]" ) {
     // Past the end
     REQUIRE_THROWS( generator.skipToNthElement( 6 ) );
 }
+
+TEST_CASE( "FixedValuesGenerator can be skipped forward",
+           "[generators][values]" ) {
+    Catch::Generators::FixedValuesGenerator<int> values( {0, 1, 2, 3, 4} );
+    REQUIRE( values.currentElementIndex() == 0 );
+
+    values.skipToNthElement( 3 );
+    REQUIRE( values.currentElementIndex() == 3 );
+    REQUIRE( values.get() == 3 );
+
+    values.skipToNthElement( 4 );
+    REQUIRE( values.currentElementIndex() == 4 );
+    REQUIRE( values.get() == 4 );
+
+    // Past the end
+    REQUIRE_THROWS( values.skipToNthElement( 5 ) );
+}
+
+TEST_CASE( "TakeGenerator can be skipped forward", "[generators][take]" ) {
+    SECTION("take is shorter than underlying") {
+        Catch::Generators::TakeGenerator<int> take(
+            6, Catch::Generators::values( { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 } ) );
+        REQUIRE( take.get() == 0 );
+
+        take.skipToNthElement( 2 );
+        REQUIRE( take.get() == 2 );
+
+        take.skipToNthElement( 5 );
+        REQUIRE( take.get() == 5 );
+
+        // This is in the original values, but past the end of the take
+        REQUIRE_THROWS( take.skipToNthElement( 6 ) );
+    }
+    SECTION( "take is longer than underlying" ) {
+        Catch::Generators::TakeGenerator<int> take(
+            8, Catch::Generators::values( { 0, 1, 2, 3, 4, 5 } ) );
+        REQUIRE( take.get() == 0 );
+
+        take.skipToNthElement( 2 );
+        REQUIRE( take.get() == 2 );
+
+        take.skipToNthElement( 5 );
+        REQUIRE( take.get() == 5 );
+
+        // This is in the take, but outside of original values
+        REQUIRE_THROWS( take.skipToNthElement( 6 ) );
+    }
+}
+
+TEST_CASE("MapGenerator can be skipped forward efficiently",
+    "[generators][map]") {
+    using namespace Catch::Generators;
+
+    int map_calls = 0;
+    auto map_func = [&map_calls]( int i ) {
+        ++map_calls;
+        return i;
+    };
+
+    MapGenerator<int, int, decltype(map_func)> map_generator( map_func, values( { 0, 1, 2, 3, 4, 5, 6 } ) );
+    const int map_calls_1 = map_calls;
+
+    map_generator.skipToNthElement( 4 );
+    REQUIRE( map_generator.get() == 4 );
+    REQUIRE( map_calls == map_calls_1 + 1 );
+
+    map_generator.skipToNthElement( 4 );
+    REQUIRE( map_generator.get() == 4 );
+    REQUIRE( map_calls == map_calls_1 + 1 );
+
+    const int map_calls_2 = map_calls;
+    map_generator.skipToNthElement( 6 );
+    REQUIRE( map_generator.get() == 6 );
+    REQUIRE( map_calls == map_calls_2 + 1 );
+
+    REQUIRE_THROWS( map_generator.skipToNthElement( 7 ) );
+    REQUIRE( map_calls == map_calls_2 + 1 );
+}
