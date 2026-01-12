@@ -234,6 +234,49 @@ namespace Generators {
         );
     }
 
+    template <typename T>
+    class ConcatGenerator final : public IGenerator<T> {
+        std::vector<GeneratorWrapper<T>> m_generators;
+        size_t m_current_generator = 0;
+
+        void InsertGenerators( GeneratorWrapper<T>&& gen ) {
+            m_generators.push_back( CATCH_MOVE( gen ) );
+        }
+
+        template <typename... Generators>
+        void InsertGenerators( GeneratorWrapper<T>&& gen, Generators&&... gens ) {
+            m_generators.push_back( CATCH_MOVE( gen ) );
+            InsertGenerators( CATCH_MOVE( gens )... );
+        }
+
+    public:
+        template <typename... Generators>
+        ConcatGenerator( Generators&&... generators ) {
+            InsertGenerators( CATCH_MOVE( generators )... );
+        }
+
+        T const& get() const override {
+            return m_generators[m_current_generator].get();
+        }
+        bool next() override {
+            const bool success = m_generators[m_current_generator].next();
+            if ( success ) { return true; }
+
+            // If current generator is used up, we have to move to the next one
+            ++m_current_generator;
+            return m_current_generator < m_generators.size();
+        }
+    };
+
+    template <typename T, typename... Generators>
+    GeneratorWrapper<T> cat( GeneratorWrapper<T>&& generator,
+                             Generators&&... generators ) {
+        return GeneratorWrapper<T>(
+            Catch::Detail::make_unique<ConcatGenerator<T>>(
+            CATCH_MOVE( generator ), CATCH_MOVE( generators )... ) );
+    }
+
+
 } // namespace Generators
 } // namespace Catch
 
