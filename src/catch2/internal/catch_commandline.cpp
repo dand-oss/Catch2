@@ -193,18 +193,18 @@ namespace Catch {
             return ParserResult::ok( ParseResultType::Matched );
         };
         auto const setBenchmarkSamples = [&]( std::string const& samples ) {
-        auto parsedSamples = parseUInt( samples );
-        if ( !parsedSamples ) {
-            return ParserResult::runtimeError(
-                "Could not parse '" + samples + "' as benchmark samples" );
-        }
-        if ( *parsedSamples == 0 ) {
-            return ParserResult::runtimeError(
-                "Benchmark samples must be greater than 0" );
-        }
-        config.benchmarkSamples = *parsedSamples;
-        return ParserResult::ok( ParseResultType::Matched );
-    };
+            auto parsedSamples = parseUInt( samples );
+            if ( !parsedSamples ) {
+                return ParserResult::runtimeError(
+                    "Could not parse '" + samples + "' as benchmark samples" );
+            }
+            if ( *parsedSamples == 0 ) {
+                return ParserResult::runtimeError(
+                    "Benchmark samples must be greater than 0" );
+            }
+            config.benchmarkSamples = *parsedSamples;
+            return ParserResult::ok( ParseResultType::Matched );
+        };
 
         auto const setShardIndex = [&](std::string const& shardIndex) {
             auto parsedIndex = parseUInt( shardIndex );
