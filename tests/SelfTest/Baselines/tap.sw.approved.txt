@@ -2371,9 +2371,9 @@ ok {test-number} - config.warnings == WarnAbout::NoAssertions for: 1 == 1
 # Parsing warnings
 ok {test-number} - !(cli.parse( { "test", "-w", "NoTests" } )) for: !{?}
 # Parsing warnings
-ok {test-number} - cli.parse( { "test", "--warn", "NoAssertions", "--warn", "UnmatchedTestSpec" } ) for: {?}
+ok {test-number} - cli.parse( { "test", "--warn", "NoAssertions", "--warn", "UnmatchedTestSpec", "--warn", "InfiniteGenerators" } ) for: {?}
 # Parsing warnings
-ok {test-number} - config.warnings == ( WarnAbout::NoAssertions | WarnAbout::UnmatchedTestSpec ) for: 3 == 3
+ok {test-number} - config.warnings == ( WarnAbout::NoAssertions | WarnAbout::UnmatchedTestSpec | WarnAbout::InfiniteGenerator ) for: 7 == 7
 # Pointers can be compared to null
 ok {test-number} - p == 0 for: 0 == 0
 # Pointers can be compared to null

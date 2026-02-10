@@ -11291,7 +11291,7 @@ Approx( 1.21999999999999997 )
     <Section name="Combining multiple warnings" filename="tests/<exe-name>/IntrospectiveTests/CmdLine.tests.cpp" >
       <Expression success="true" type="REQUIRE" filename="tests/<exe-name>/IntrospectiveTests/CmdLine.tests.cpp" >
         <Original>
-          cli.parse( { "test", "--warn", "NoAssertions", "--warn", "UnmatchedTestSpec" } )
+          cli.parse( { "test", "--warn", "NoAssertions", "--warn", "UnmatchedTestSpec", "--warn", "InfiniteGenerators" } )
         </Original>
         <Expanded>
           {?}
@@ -11299,10 +11299,10 @@ Approx( 1.21999999999999997 )
       </Expression>
       <Expression success="true" type="REQUIRE" filename="tests/<exe-name>/IntrospectiveTests/CmdLine.tests.cpp" >
         <Original>
-          config.warnings == ( WarnAbout::NoAssertions | WarnAbout::UnmatchedTestSpec )
+          config.warnings == ( WarnAbout::NoAssertions | WarnAbout::UnmatchedTestSpec | WarnAbout::InfiniteGenerator )
         </Original>
         <Expanded>
-          3 == 3
+          7 == 7
         </Expanded>
       </Expression>
       <OverallResults successes="2" failures="0" expectedFailures="0" skipped="false"/>

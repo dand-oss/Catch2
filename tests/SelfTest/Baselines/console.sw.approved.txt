@@ -9425,14 +9425,14 @@ CmdLine.tests.cpp:<line number>
 ...............................................................................
 
 CmdLine.tests.cpp:<line number>: PASSED:
-  REQUIRE( cli.parse( { "test", "--warn", "NoAssertions", "--warn", "UnmatchedTestSpec" } ) )
+  REQUIRE( cli.parse( { "test", "--warn", "NoAssertions", "--warn", "UnmatchedTestSpec", "--warn", "InfiniteGenerators" } ) )
 with expansion:
   {?}
 
 CmdLine.tests.cpp:<line number>: PASSED:
-  REQUIRE( config.warnings == ( WarnAbout::NoAssertions | WarnAbout::UnmatchedTestSpec ) )
+  REQUIRE( config.warnings == ( WarnAbout::NoAssertions | WarnAbout::UnmatchedTestSpec | WarnAbout::InfiniteGenerator ) )
 with expansion:
-  3 == 3
+  7 == 7
 
 -------------------------------------------------------------------------------
 Pointers can be compared to null
