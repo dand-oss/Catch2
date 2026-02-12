@@ -39,8 +39,13 @@ namespace Catch {
                 GeneratorTracker(
                     TestCaseTracking::NameAndLocation&& nameAndLocation,
                     TrackerContext& ctx,
-                    ITracker* parent ):
-                    TrackerBase( CATCH_MOVE( nameAndLocation ), ctx, parent ) {}
+                    ITracker* parent,
+                    GeneratorBasePtr&& generator ):
+                    TrackerBase( CATCH_MOVE( nameAndLocation ), ctx, parent ),
+                    m_generator( CATCH_MOVE( generator ) ) {
+                    assert( m_generator &&
+                            "Cannot create tracker without generator" );
+                }
 
                 static GeneratorTracker*
                 acquire( TrackerContext& ctx,
@@ -84,9 +89,6 @@ namespace Catch {
 
                 // TrackerBase interface
                 bool isGeneratorTracker() const override { return true; }
-                auto hasGenerator() const -> bool override {
-                    return !!m_generator;
-                }
                 void close() override {
                     TrackerBase::close();
                     // If a generator has a child (it is followed by a section)
@@ -156,9 +158,6 @@ namespace Catch {
                 // IGeneratorTracker interface
                 auto getGenerator() const -> GeneratorBasePtr const& override {
                     return m_generator;
-                }
-                void setGenerator( GeneratorBasePtr&& generator ) override {
-                    m_generator = CATCH_MOVE( generator );
                 }
             };
         } // namespace
@@ -497,12 +496,15 @@ namespace Catch {
             currentTracker.nameAndLocation() != nameAndLoc &&
             "Trying to create tracker for a generator that already has one" );
 
-        auto newTracker = Catch::Detail::make_unique<Generators::GeneratorTracker>(
-            CATCH_MOVE(nameAndLoc), m_trackerContext, &currentTracker );
+        auto newTracker =
+            Catch::Detail::make_unique<Generators::GeneratorTracker>(
+                CATCH_MOVE( nameAndLoc ),
+                m_trackerContext,
+                &currentTracker,
+                CATCH_MOVE( generator ) );
         auto ret = newTracker.get();
         currentTracker.addChild( CATCH_MOVE( newTracker ) );
 
-        ret->setGenerator( CATCH_MOVE( generator ) );
         ret->open();
         return ret;
     }
