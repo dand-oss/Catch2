@@ -30,13 +30,8 @@ namespace Generators {
                     "Coud not jump to Nth element: not enough elements" );
             }
 
-            for (; m_returned < n; ++m_returned) {
-                const auto success = m_generator.next();
-                if ( !success ) {
-                    Detail::throw_generator_exception(
-                        "Coud not jump to Nth element: not enough elements" );
-                }
-            }
+            m_generator.skipToNthElement( n );
+            m_returned = n;
         }
 
     public:
@@ -186,17 +181,8 @@ namespace Generators {
         mutable Optional<T> m_cache;
 
         void skipToNthElementImpl( std::size_t n ) override {
-            for ( size_t curr = GeneratorUntypedBase::currentElementIndex();
-                  curr < n;
-                  ++curr ) {
-                const auto success = m_generator.next();
-                if (!success) {
-                    Detail::throw_generator_exception(
-                        "Coud not jump to Nth element: not enough elements" );
-                }
-            }
-
-            m_cache = m_function( m_generator.get() );
+            m_generator.skipToNthElement( n );
+            m_cache.reset();
         }
 
     public:
