@@ -9927,18 +9927,10 @@ Approx( 1.21999999999999997 )
   <TestCase name="MapGenerator can be skipped forward efficiently" tags="[generators][map]" filename="tests/<exe-name>/IntrospectiveTests/GeneratorsImpl.tests.cpp" >
     <Expression success="true" type="REQUIRE" filename="tests/<exe-name>/IntrospectiveTests/GeneratorsImpl.tests.cpp" >
       <Original>
-        map_generator.get() == 4
+        map_calls == 0
       </Original>
       <Expanded>
-        4 == 4
-      </Expanded>
-    </Expression>
-    <Expression success="true" type="REQUIRE" filename="tests/<exe-name>/IntrospectiveTests/GeneratorsImpl.tests.cpp" >
-      <Original>
-        map_calls == map_calls_1 + 1
-      </Original>
-      <Expanded>
-        2 == 2
+        0 == 0
       </Expanded>
     </Expression>
     <Expression success="true" type="REQUIRE" filename="tests/<exe-name>/IntrospectiveTests/GeneratorsImpl.tests.cpp" >
@@ -9954,7 +9946,23 @@ Approx( 1.21999999999999997 )
         map_calls == map_calls_1 + 1
       </Original>
       <Expanded>
-        2 == 2
+        1 == 1
+      </Expanded>
+    </Expression>
+    <Expression success="true" type="REQUIRE" filename="tests/<exe-name>/IntrospectiveTests/GeneratorsImpl.tests.cpp" >
+      <Original>
+        map_generator.get() == 4
+      </Original>
+      <Expanded>
+        4 == 4
+      </Expanded>
+    </Expression>
+    <Expression success="true" type="REQUIRE" filename="tests/<exe-name>/IntrospectiveTests/GeneratorsImpl.tests.cpp" >
+      <Original>
+        map_calls == map_calls_1 + 1
+      </Original>
+      <Expanded>
+        1 == 1
       </Expanded>
     </Expression>
     <Expression success="true" type="REQUIRE" filename="tests/<exe-name>/IntrospectiveTests/GeneratorsImpl.tests.cpp" >
@@ -9970,7 +9978,7 @@ Approx( 1.21999999999999997 )
         map_calls == map_calls_2 + 1
       </Original>
       <Expanded>
-        3 == 3
+        2 == 2
       </Expanded>
     </Expression>
     <Expression success="true" type="REQUIRE_THROWS" filename="tests/<exe-name>/IntrospectiveTests/GeneratorsImpl.tests.cpp" >
@@ -9986,7 +9994,7 @@ Approx( 1.21999999999999997 )
         map_calls == map_calls_2 + 1
       </Original>
       <Expanded>
-        3 == 3
+        2 == 2
       </Expanded>
     </Expression>
     <OverallResult success="true" skips="0"/>
@@ -23237,6 +23245,6 @@ Approx( -1.95996398454005449 )
     </Section>
     <OverallResult success="true" skips="0"/>
   </TestCase>
-  <OverallResults successes="2198" failures="158" expectedFailures="43" skips="12"/>
+  <OverallResults successes="2199" failures="158" expectedFailures="43" skips="12"/>
   <OverallResultsCases successes="329" failures="96" expectedFailures="18" skips="6"/>
 </Catch2TestRun>

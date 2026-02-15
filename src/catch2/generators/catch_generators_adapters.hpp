@@ -11,6 +11,7 @@
 #include <catch2/generators/catch_generators.hpp>
 #include <catch2/internal/catch_meta.hpp>
 #include <catch2/internal/catch_move_and_forward.hpp>
+#include <catch2/internal/catch_optional.hpp>
 
 #include <cassert>
 
@@ -182,7 +183,7 @@ namespace Generators {
         GeneratorWrapper<U> m_generator;
         Func m_function;
         // To avoid returning dangling reference, we have to save the values
-        T m_cache;
+        mutable Optional<T> m_cache;
 
         void skipToNthElementImpl( std::size_t n ) override {
             for ( size_t curr = GeneratorUntypedBase::currentElementIndex();
@@ -202,19 +203,16 @@ namespace Generators {
         template <typename F2 = Func>
         MapGenerator(F2&& function, GeneratorWrapper<U>&& generator) :
             m_generator(CATCH_MOVE(generator)),
-            m_function(CATCH_FORWARD(function)),
-            m_cache(m_function(m_generator.get()))
+            m_function(CATCH_FORWARD(function))
         {}
 
         T const& get() const override {
-            return m_cache;
+            if ( !m_cache ) { m_cache = m_function( m_generator.get() ); }
+            return *m_cache;
         }
         bool next() override {
-            const auto success = m_generator.next();
-            if (success) {
-                m_cache = m_function(m_generator.get());
-            }
-            return success;
+            m_cache.reset();
+            return m_generator.next();
         }
 
         bool isFinite() const override { return m_generator.isFinite(); }

@@ -709,6 +709,7 @@ TEST_CASE("MapGenerator can be skipped forward efficiently",
     };
 
     MapGenerator<int, int, decltype(map_func)> map_generator( map_func, values( { 0, 1, 2, 3, 4, 5, 6 } ) );
+    REQUIRE( map_calls == 0 );
     const int map_calls_1 = map_calls;
 
     map_generator.skipToNthElement( 4 );

@@ -8258,14 +8258,9 @@ GeneratorsImpl.tests.cpp:<line number>
 ...............................................................................
 
 GeneratorsImpl.tests.cpp:<line number>: PASSED:
-  REQUIRE( map_generator.get() == 4 )
+  REQUIRE( map_calls == 0 )
 with expansion:
-  4 == 4
-
-GeneratorsImpl.tests.cpp:<line number>: PASSED:
-  REQUIRE( map_calls == map_calls_1 + 1 )
-with expansion:
-  2 == 2
+  0 == 0
 
 GeneratorsImpl.tests.cpp:<line number>: PASSED:
   REQUIRE( map_generator.get() == 4 )
@@ -8275,7 +8270,17 @@ with expansion:
 GeneratorsImpl.tests.cpp:<line number>: PASSED:
   REQUIRE( map_calls == map_calls_1 + 1 )
 with expansion:
-  2 == 2
+  1 == 1
+
+GeneratorsImpl.tests.cpp:<line number>: PASSED:
+  REQUIRE( map_generator.get() == 4 )
+with expansion:
+  4 == 4
+
+GeneratorsImpl.tests.cpp:<line number>: PASSED:
+  REQUIRE( map_calls == map_calls_1 + 1 )
+with expansion:
+  1 == 1
 
 GeneratorsImpl.tests.cpp:<line number>: PASSED:
   REQUIRE( map_generator.get() == 6 )
@@ -8285,7 +8290,7 @@ with expansion:
 GeneratorsImpl.tests.cpp:<line number>: PASSED:
   REQUIRE( map_calls == map_calls_2 + 1 )
 with expansion:
-  3 == 3
+  2 == 2
 
 GeneratorsImpl.tests.cpp:<line number>: PASSED:
   REQUIRE_THROWS( map_generator.skipToNthElement( 7 ) )
@@ -8293,7 +8298,7 @@ GeneratorsImpl.tests.cpp:<line number>: PASSED:
 GeneratorsImpl.tests.cpp:<line number>: PASSED:
   REQUIRE( map_calls == map_calls_2 + 1 )
 with expansion:
-  3 == 3
+  2 == 2
 
 -------------------------------------------------------------------------------
 Matchers can be (AllOf) composed with the && operator
@@ -20019,5 +20024,5 @@ Misc.tests.cpp:<line number>: PASSED:
 
 ===============================================================================
 test cases:  449 |  329 passed |  96 failed | 6 skipped | 18 failed as expected
-assertions: 2399 | 2198 passed | 158 failed | 43 failed as expected
+assertions: 2400 | 2199 passed | 158 failed | 43 failed as expected
 
