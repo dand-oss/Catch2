@@ -61,7 +61,6 @@ namespace Catch {
         virtual void benchmarkEnded( BenchmarkStats<> const& stats ) = 0;
         virtual void benchmarkFailed( StringRef error ) = 0;
 
-
         virtual void handleFatalErrorCondition( StringRef message ) = 0;
 
         virtual void handleExpr
@@ -86,9 +85,6 @@ namespace Catch {
                 (   AssertionInfo const &info,
                     ResultWas::OfType resultType,
                     AssertionReaction &reaction ) = 0;
-
-
-        virtual bool lastAssertionPassed() = 0;
 
         // Deprecated, do not use:
         virtual std::string getCurrentTestName() const = 0;

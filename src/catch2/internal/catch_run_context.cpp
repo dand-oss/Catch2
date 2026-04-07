@@ -324,6 +324,9 @@ namespace Catch {
         void addUnscopedMessage( MessageInfo&& message ) {
             Detail::g_messageHolder().addUnscopedMessage( CATCH_MOVE( message ) );
         }
+
+        bool lastAssertionPassed() { return Detail::g_lastAssertionPassed; }
+
     } // namespace Detail
 
     RunContext::RunContext(IConfig const* _config, IEventListenerPtr&& reporter)
@@ -720,10 +723,6 @@ namespace Catch {
         m_reporter->testRunEnded(TestRunStats(m_runInfo, m_totals, false));
     }
 
-    bool RunContext::lastAssertionPassed() {
-        return Detail::g_lastAssertionPassed;
-    }
-
     void RunContext::assertionPassedFastPath(SourceLineInfo lineInfo) {
         // We want to save the line info for better experience with unexpected assertions
         Detail::g_lastKnownLineInfo = lineInfo;
@@ -952,7 +951,6 @@ namespace Catch {
                 reaction, info.resultDisposition & ResultDisposition::Normal );
         }
     }
-
 
     void seedRng(IConfig const& config) {
         sharedRng().seed(config.rngSeed());
