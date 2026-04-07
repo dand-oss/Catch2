@@ -308,6 +308,22 @@ namespace Catch {
         }
         CATCH_INTERNAL_STOP_WARNINGS_SUPPRESSION
 
+
+        void pushScopedMessage( MessageInfo&& message ) {
+            Detail::g_messageHolder().addScopedMessage(  CATCH_MOVE( message ) );
+        }
+
+        void popScopedMessage( unsigned int messageId ) {
+            Detail::g_messageHolder().removeMessage( messageId );
+        }
+
+        void emplaceUnscopedMessage( MessageBuilder&& builder ) {
+            Detail::g_messageHolder().addUnscopedMessage( CATCH_MOVE( builder ) );
+        }
+
+        void addUnscopedMessage( MessageInfo&& message ) {
+            Detail::g_messageHolder().addUnscopedMessage( CATCH_MOVE( message ) );
+        }
     } // namespace Detail
 
     RunContext::RunContext(IConfig const* _config, IEventListenerPtr&& reporter)
@@ -937,21 +953,6 @@ namespace Catch {
         }
     }
 
-    void IResultCapture::pushScopedMessage( MessageInfo&& message ) {
-        Detail::g_messageHolder().addScopedMessage(  CATCH_MOVE( message ) );
-    }
-
-    void IResultCapture::popScopedMessage( unsigned int messageId ) {
-        Detail::g_messageHolder().removeMessage( messageId );
-    }
-
-    void IResultCapture::emplaceUnscopedMessage( MessageBuilder&& builder ) {
-        Detail::g_messageHolder().addUnscopedMessage( CATCH_MOVE( builder ) );
-    }
-
-    void IResultCapture::addUnscopedMessage( MessageInfo&& message ) {
-        Detail::g_messageHolder().addUnscopedMessage( CATCH_MOVE( message ) );
-    }
 
     void seedRng(IConfig const& config) {
         sharedRng().seed(config.rngSeed());
