@@ -13,6 +13,7 @@
 #include <catch2/internal/catch_reusable_string_stream.hpp>
 #include <catch2/internal/catch_stream_end_stop.hpp>
 #include <catch2/internal/catch_message_info.hpp>
+#include <catch2/internal/catch_move_and_forward.hpp>
 #include <catch2/catch_tostring.hpp>
 
 #include <string>
