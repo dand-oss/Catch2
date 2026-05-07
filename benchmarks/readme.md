@@ -54,6 +54,10 @@ hyperfine --warmup 2 --shell none --parameter-list version old,new '/home/xarn/b
 ```
 _Note that we redirect the output to `/dev/null` to reduce the overhead of the actual output printing, to see just the impact of stringification._
 
+TODO:
+  * Start empty binary (set up cost base)
+  * Start binary with X (100/1k/10k) tests (test registration cost)
+  * Section tracking
 
 ## Compilation benchmarks
 
