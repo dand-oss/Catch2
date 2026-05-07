@@ -49,7 +49,7 @@ hyperfine --warmup 2 --shell none --parameter-list version old,new '/home/xarn/b
 ```
 
 **Compare performance of `REQUIRE` with stringification enabled, release build**
-```
+```text
 hyperfine --warmup 2 --shell none --parameter-list version old,new '/home/xarn/benches/Catch2-{version}/build-release/benchmarks/AssertionsFastPath -s -o /dev/null "REQUIRE"'
 ```
 _Note that we redirect the output to `/dev/null` to reduce the overhead of the actual output printing, to see just the impact of stringification._
@@ -60,8 +60,18 @@ _Note that we redirect the output to `/dev/null` to reduce the overhead of the a
 As tests are often iterated upon and relinked, the compilation cost of
 Catch2 is also important.
 
+
+### Examples
+
+**Compare overhead of including `catch_test_macros.hpp`**
+```text
+hyperfine --warmup 2 --shell none --parameter-list version old,new '/usr/bin/c++  -I/home/xarn/benches/Catch2-{version}/src/catch2/.. -I/home/xarn/benches/Catch2-{version}/build-debug/generated-includes -g -o /dev/null -c /home/xarn/benches/Catch2-{version}/benchmarks/only_include.cpp'
+```
+
+**Compare build time of Catch2's `SelfTest` test suite, Debug build**
+```text
+hyperfine --warmup 2 --parameter-list version old,vas --prepare 'find ~/benches/Catch2-{version}/tests/SelfTest -type f -name "*.cpp" -exec touch {} +' 'ninja -j 1 -C ~/benches/Catch2-{version}/build-debug'
+```
+
 TODO:
-  * Single file vs test suite build
-  * Practical examples
-  * Include-only overhead
-  * Link-only example
+  * Link-only recipe
