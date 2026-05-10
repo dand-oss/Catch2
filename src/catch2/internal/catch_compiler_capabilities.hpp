@@ -35,6 +35,18 @@
 #  define CATCH_CPP20_OR_GREATER
 #endif
 
+// Matchers are only constexpr-able in C++20
+#if defined( CATCH_CPP20_OR_GREATER ) && \
+    defined( __cpp_constexpr_dynamic_alloc ) && \
+    __cpp_constexpr_dynamic_alloc >= 201907L && \
+    /* GCC < 13 define the feature macro, but compiler bugs stop us from using it */ \
+    ( !defined( __GNUC__ ) || __GNUC__ >= 13 || defined(__clang__) )
+#    define CATCH_INTERNAL_CONSTEXPR_MATCHERS_ENABLED
+#    define CATCH_DESTRUCTOR_CONSTEXPR constexpr
+#else
+#    define CATCH_DESTRUCTOR_CONSTEXPR
+#endif
+
 // Only GCC compiler should be used in this block, so other compilers trying to
 // mask themselves as GCC should be ignored.
 #if defined(__GNUC__) && !defined(__clang__) && !defined(__ICC) && !defined(__CUDACC__) && !defined(__LCC__) && !defined(__NVCOMPILER)
