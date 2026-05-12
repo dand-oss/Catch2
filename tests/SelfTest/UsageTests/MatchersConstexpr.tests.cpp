@@ -8,6 +8,9 @@
 
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/matchers/catch_matchers_templated.hpp>
+#include <catch2/matchers/catch_matchers_container_properties.hpp>
+
+#include <array>
 
 #if defined( CATCH_INTERNAL_CONSTEXPR_MATCHERS_ENABLED )
 
@@ -32,6 +35,15 @@ namespace {
 TEST_CASE( "Constexpr support for matchers", "[constexpr][matchers][approvals]" ) {
     STATIC_REQUIRE( MatchAll().match( 1 ) );
     STATIC_REQUIRE_THAT( 1, MatchAll() );
+}
+
+TEST_CASE( "IsEmpty and HasSize matchers can be used in constexpr contexts",
+           "[constexpr][matchers][approvals]" ){
+    static constexpr std::array<int, 0> empty{};
+    STATIC_REQUIRE_THAT( empty, Catch::Matchers::IsEmpty() );
+    static constexpr int arr[1] = { 2 };
+    STATIC_REQUIRE_THAT( arr, Catch::Matchers::SizeIs( 1 ) );
+    STATIC_REQUIRE_THAT( arr, Catch::Matchers::SizeIs( MatchAll() ) );
 }
 
 // Combining matchers needs C++26 and P2738, so they are in separate preprocessor block

@@ -491,6 +491,15 @@ TEST_CASE("Constexpr support for matchers", "[constexpr][matchers]") {
 }
 ```
 
+### First party constexpr matchers
+
+Some (but not all) of Catch2's generic matchers support `constexpr`
+matching. Currently, this includes:
+
+* `IsEmpty()`
+* `SizeIs(size_t target_size)`
+* `SizeIs(Matcher size_matcher)`
+
 
 ---
 
