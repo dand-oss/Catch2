@@ -15,6 +15,7 @@
 #include <catch2/matchers/catch_matchers_container_properties.hpp>
 #include <catch2/matchers/catch_matchers_quantifiers.hpp>
 #include <catch2/matchers/catch_matchers_contains.hpp>
+#include <catch2/matchers/catch_matchers_range_equals.hpp>
 
 #include <array>
 
@@ -56,6 +57,10 @@ namespace {
             return { false, true, false };
         case 2:
             return { false, false, false };
+        case 3:
+            return { true, false, false };
+        case 4:
+            return { true, true, false };
         default:
             return { false, false, false };
         }
@@ -96,6 +101,16 @@ TEST_CASE( "Generic Equals matchers can be used in constexpr contexts",
     STATIC_REQUIRE_THAT( compute_bools( 0 ), Contains( true ) );
     STATIC_REQUIRE_THAT( compute_bools( 1 ), Contains( MatchTrue() ) );
     STATIC_REQUIRE_THAT( compute_bools( 2 ), Contains( true, std::not_equal_to<>{} ) );
+}
+
+TEST_CASE( "Range equals matchers can be used in constexpr contexts",
+           "[constexpr][matchers][approvals]" ) {
+    using Catch::Matchers::RangeEquals;
+    using Catch::Matchers::UnorderedRangeEquals;
+    STATIC_REQUIRE_THAT( compute_bools( 0 ), RangeEquals( compute_bools( 0 ) ) );
+    STATIC_REQUIRE_THAT( compute_bools( 2 ), RangeEquals( compute_bools( 0 ), std::not_equal_to<>{} ) );
+    STATIC_REQUIRE_THAT( compute_bools( 1 ), UnorderedRangeEquals( compute_bools( 3 ) ) );
+    STATIC_REQUIRE_THAT( compute_bools( 1 ), UnorderedRangeEquals( compute_bools( 4 ), std::not_equal_to<>{} ) );
 }
 
 // Combining matchers needs C++26 and P2738, so they are in separate preprocessor block

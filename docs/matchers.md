@@ -504,6 +504,8 @@ matching. Currently, this includes:
 * `AllTrue()`, `AnyTrue()`, `NoneTrue()`
 * `Contains(T&& target_element, Comparator = std::equal_to<>{})`
 * `Contains(Matcher element_matcher)`
+* `RangeEquals(TargetRangeLike&&, Comparator = std::equal_to<>{})`
+* `UnorderedRangeEquals(TargetRangeLike&&, Comparator = std::equal_to<>{})`
 
 
 ---
