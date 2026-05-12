@@ -14,6 +14,7 @@
 #include <catch2/matchers/catch_matchers_templated.hpp>
 #include <catch2/matchers/catch_matchers_container_properties.hpp>
 #include <catch2/matchers/catch_matchers_quantifiers.hpp>
+#include <catch2/matchers/catch_matchers_contains.hpp>
 
 #include <array>
 
@@ -47,6 +48,18 @@ namespace {
 
     constexpr MatchTrueMatcher MatchTrue() { return MatchTrueMatcher(); }
 
+    constexpr std::array<bool, 3> compute_bools( int type ) {
+        switch ( type ) {
+        case 0:
+            return { true, true, true };
+        case 1:
+            return { false, true, false };
+        case 2:
+            return { false, false, false };
+        default:
+            return { false, false, false };
+        }
+    }
 
 } // namespace
 
@@ -65,19 +78,6 @@ TEST_CASE( "IsEmpty and HasSize matchers can be used in constexpr contexts",
     STATIC_REQUIRE_THAT( arr, SizeIs( MatchAll() ) );
 }
 
-constexpr std::array<bool, 3> compute_bools( int type ) {
-    switch ( type ) {
-    case 0:
-        return { true, true, true };
-    case 1:
-        return { false, true, false };
-    case 2:
-        return { false, false, false };
-    default:
-        return { false, false, false };
-    }
-}
-
 TEST_CASE( "Quantifier matchers can be used in constexpr contexts",
            "[constexpr][matchers][approvals]" ) {
     using namespace Catch::Matchers;
@@ -88,6 +88,14 @@ TEST_CASE( "Quantifier matchers can be used in constexpr contexts",
     STATIC_REQUIRE_THAT( compute_bools( 0 ), AllMatch( MatchTrue() ) );
     STATIC_REQUIRE_THAT( compute_bools( 1 ), AnyMatch( MatchTrue() ) );
     STATIC_REQUIRE_THAT( compute_bools( 2 ), NoneMatch( MatchTrue() ) );
+}
+
+TEST_CASE( "Generic Equals matchers can be used in constexpr contexts",
+           "[constexpr][matchers][approvals]" ) {
+    using Catch::Matchers::Contains;
+    STATIC_REQUIRE_THAT( compute_bools( 0 ), Contains( true ) );
+    STATIC_REQUIRE_THAT( compute_bools( 1 ), Contains( MatchTrue() ) );
+    STATIC_REQUIRE_THAT( compute_bools( 2 ), Contains( true, std::not_equal_to<>{} ) );
 }
 
 // Combining matchers needs C++26 and P2738, so they are in separate preprocessor block

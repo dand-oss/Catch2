@@ -502,6 +502,8 @@ matching. Currently, this includes:
 * `AnyMatch(Matcher element_matcher)`
 * `NoneMatch(Matcher element_matcher)`
 * `AllTrue()`, `AnyTrue()`, `NoneTrue()`
+* `Contains(T&& target_element, Comparator = std::equal_to<>{})`
+* `Contains(Matcher element_matcher)`
 
 
 ---
