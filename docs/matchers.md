@@ -474,7 +474,7 @@ and new style matchers arbitrarily.
 
 ## Constexpr matchers
 
-> Support for constexpr matchers was introduced in Catch2 vX.Y.Z
+> Support for constexpr matchers was introduced in Catch2 3.15.0
 
 When compiled for C++20, the new-style matchers (can) support `constexpr`
 matching, albeit not `constexpr` stringification. The matcher combinators

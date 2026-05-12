@@ -93,7 +93,7 @@ TEST_CASE("STATIC_CHECK showcase", "[traits]") {
 
 * `STATIC_REQUIRE_THAT` and `STATIC_CHECK_THAT`
 
-> `STATIC_REQUIRE_THAT` and `STATIC_CHECK_THAT` was introduced in Catch2 X.Y.Z
+> `STATIC_REQUIRE_THAT` and `STATIC_CHECK_THAT` was introduced in Catch2 3.15.0
 
 `STATIC_{REQUIRE,CHECK}_THAT` are analogous to `STATIC_{REQUIRE,CHECK}`,
 but for matchers. They are always defined, even if the current compiler
