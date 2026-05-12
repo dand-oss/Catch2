@@ -497,8 +497,11 @@ Some (but not all) of Catch2's generic matchers support `constexpr`
 matching. Currently, this includes:
 
 * `IsEmpty()`
-* `SizeIs(size_t target_size)`
-* `SizeIs(Matcher size_matcher)`
+* `SizeIs(size_t target_size)`, `SizeIs(Matcher size_matcher)`
+* `AllMatch(Matcher element_matcher)`
+* `AnyMatch(Matcher element_matcher)`
+* `NoneMatch(Matcher element_matcher)`
+* `AllTrue()`, `AnyTrue()`, `NoneTrue()`
 
 
 ---
